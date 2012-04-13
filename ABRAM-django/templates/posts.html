@@ -1,5 +1,39 @@
 <html>
 	<body>
-		<p> Sup son </p>
+	<form action="/posts/" method="post" />
+	{%csrf_token %}
+		Tags to filter by: <input type="text" name="tags" />
+		<input type="submit" value="Filter threads" />
+	</form>
+	<p></p>
+	
+	
+	<form action="/posts/post_thread/" method="post" />
+	{% csrf_token %}
+		Author <input type="text" name="author" />
+		Title <input type="text" name="title" />
+		Professor_viewable <input type="checkbox" name="professor_viewable" />
+		Content <input type="text" name="content" />
+		<input type="submit" value="Post new thread" />
+	</form>	
+	{% for thread in thread_list %}
+		<p>Title: {{ thread.title }} Author: {{ thread.author }} Date: {{ thread.pub_date }} 
+		<p> Tags: </p>
+		{% for tag in thread.tags.all %}
+			<li> {{ tag.tag }} </li>
+		{% endfor %}
+		</p>
+		{% for post in thread.post_set.all %}
+			<li> Author: {{ post.author }} Content: {{ post.content }} Date: {{ post.pub_date }} </li>
+		{% endfor %}
+		
+		<form action="/posts/post_comment/" method="post">
+			{% csrf_token %}
+				Author <input type="text" name="author" />
+				Content <input type="text" name="content" />
+				<input type="hidden" name="thread" value= {{ thread.id }} />
+				<input type="submit" value="Reply to thread" />
+		</form>
+	{% endfor %}
 	</body>
 </html>

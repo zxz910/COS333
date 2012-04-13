@@ -2,14 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Thread(models.Model):
-	author             = models.ForeignKey(User, null = True)
+	#author             = models.ForeignKey(User, null = True)
+	author             = models.CharField(max_length = 20)
 	title              = models.CharField(max_length = 150)
 	pub_date           = models.DateTimeField(auto_now_add = True)
 	tags               = models.ManyToManyField('Tag')
 	professor_viewable = models.BooleanField()
 	
 class Post(models.Model):
-	author   = models.ForeignKey(User, null = True)
+	#author   = models.ForeignKey(User, null = True)
+	author    = models.CharField(max_length = 20)
 	content  = models.CharField(max_length = 2000)
 	pub_date = models.DateTimeField(auto_now_add = True)
 	thread   = models.ForeignKey('Thread')
