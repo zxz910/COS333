@@ -16,6 +16,7 @@ class ThreadAdmin(admin.ModelAdmin):
 	fieldsets = [
 		(None, {'fields': ['title']}),
 		(None, {'fields': ['author']}),
+		(None, {'fields': ['professor_viewable']}),
 	]
 	inlines = [
 		TagsInLine,
